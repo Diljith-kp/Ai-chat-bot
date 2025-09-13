@@ -12,7 +12,7 @@ Built with **HTML, CSS, and JavaScript**, and powered by the **Google Gemini API
 
 ##  Screenshot  
 <p align="center">
-  <img src="https://res.cloudinary.com/dptj37ebu/image/upload/v1757801326/Screenshot_2025-09-14_032717_vvsgxq.png" alt="To-Do List App Screenshot" width="60%">
+  <img src="https://res.cloudinary.com/dptj37ebu/image/upload/v1757801326/Screenshot_2025-09-14_032717_vvsgxq.png"  width="60%">
 </p>
 
 ---
