@@ -1,0 +1,267 @@
+:root {
+    --bg-dark-primary: #0d1117;
+    --bg-dark-secondary: #161b22;
+    --border-color: #30363d;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --accent-cyan: #00ffff;
+    --accent-cyan-dark: #38618c;
+    --font-main: 'Inter', sans-serif;
+    --font-title: 'Orbitron', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-dark-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 1rem;
+}
+
+.font-orbitron { font-family: var(--font-title); }
+.hidden { display: none !important; }
+
+#app-container {
+    width: 100%;
+    height: 100%;
+    max-width: 1152px;
+    background-color: var(--bg-dark-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#pet-container {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#pet-svg {
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+}
+
+#chat-container {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid var(--border-color);
+}
+
+#chat-header {
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+#chat-header h1 {
+    font-size: 1.5rem;
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.ai-symbol {
+    width: 1.2rem;
+    height: 1.2rem;
+    color: var(--accent-cyan);
+    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.7));
+}
+
+#chat-header p { font-size: 0.875rem; color: var(--text-secondary); }
+#load-history-btn {
+    margin-top: 0.5rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#load-history-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-cyan);
+}
+
+
+#chat-window {
+    flex-grow: 1;
+    padding: 1rem 0.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.user-bubble, .bot-bubble {
+    max-width: 85%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.user-bubble { background-color: var(--accent-cyan-dark); align-self: flex-end; }
+.bot-bubble { background-color: var(--border-color); align-self: flex-start; }
+
+.copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0,0,0,0.3);
+    border: none;
+    border-radius: 4px;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 2px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.bot-bubble:hover .copy-btn { opacity: 1; }
+.copy-btn:hover { background: rgba(0,0,0,0.5); }
+.copy-btn svg { width: 16px; height: 16px; display: block; }
+.copy-btn.copied { color: var(--accent-cyan); }
+
+
+#typing-indicator { padding: 0 1rem 0.5rem; }
+.typing-dots span {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background-color: var(--text-primary); animation: dot-bounce 1.4s infinite both;
+}
+.typing-dots span:nth-child(2) { animation-delay: .2s; }
+.typing-dots span:nth-child(3) { animation-delay: .4s; }
+
+#starters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+.starter-btn {
+    background-color: var(--border-color);
+    border: 1px solid transparent;
+    color: var(--text-primary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.8rem;
+}
+.starter-btn:hover { border-color: var(--accent-cyan); }
+
+#chat-form { display: flex; align-items: center; gap: 0.75rem; padding-top: 0.5rem; }
+#chat-input {
+    flex-grow: 1; padding: 0.75rem 1rem; background-color: var(--bg-dark-primary);
+    border: 1px solid var(--border-color); border-radius: 9999px;
+    color: var(--text-primary); outline: none; transition: border-color 0.2s;
+}
+#chat-input::placeholder { color: var(--text-secondary); }
+#chat-input:focus { border-color: var(--accent-cyan); }
+
+#send-btn {
+    background-color: #16a3b2; color: black; font-weight: bold; border-radius: 9999px;
+    padding: 0.75rem; border: none; cursor: pointer; transition: background-color 0.2s;
+}
+#send-btn:hover { background-color: #22d3ee; }
+#send-btn:disabled { background-color: #1e3a45; color: #64748b; cursor: not-allowed; }
+
+@media (min-width: 768px) {
+    #app-container { flex-direction: row; }
+    #pet-container { width: 50%; height: 100%; }
+    #pet-svg { width: 300px; height: 300px; }
+    #chat-container { width: 50%; height: 100%; border-top: none; border-left: 1px solid var(--border-color); }
+}
+
+#chat-window::-webkit-scrollbar { width: 6px; }
+#chat-window::-webkit-scrollbar-track { background: transparent; }
+#chat-window::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+.holo-glow {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
+    transition: filter 0.5s ease-in-out;
+}
+#pet-body, #left-ear, #right-ear, #tail, #mouth, #pet-svg, #left-eye-shape, #right-eye-shape {
+    transform-origin: center;
+    transition: transform 0.5s ease-in-out, d 0.5s ease-in-out;
+}
+#tail { transform-origin: 90px 90px; }
+#left-ear { transform-origin: 30px 35px; }
+#right-ear { transform-origin: 70px 35px; }
+
+.pet-idle #tail { animation: tail-sway 5s infinite ease-in-out; }
+.pet-idle #left-ear, .pet-idle #right-ear { animation: ear-twitch 8s infinite ease-in-out; }
+.pet-idle #right-ear { animation-delay: -4s; }
+.pet-idle #pet-body { animation: idle-float 4s infinite ease-in-out; }
+.pet-idle #eyes { animation: eye-blink 7s infinite; }
+
+.pet-thinking #left-ear { transform: translateY(-5px) rotate(5deg); }
+.pet-thinking #right-ear { transform: translateY(-5px) rotate(-5deg); }
+.pet-thinking #tail { transform: rotate(15deg); }
+.pet-thinking .eye-pupil { animation: eye-scan 2s infinite; }
+
+.pet-happy #pet-svg { animation: happy-bounce 0.8s infinite ease-in-out; }
+.pet-happy #tail { animation: tail-wag 0.5s infinite ease-in-out; }
+.pet-happy .holo-glow {
+     filter: drop-shadow(0 0 12px rgba(0, 255, 255, 1)) 
+            drop-shadow(0 0 25px rgba(0, 255, 255, 0.8));
+}
+.pet-excited { animation: happy-bounce 0.5s infinite ease-in-out !important; }
+.pet-excited #tail { animation: tail-wag 0.3s infinite ease-in-out !important; }
+
+
+.pet-sad #left-ear { transform: translateY(5px) rotate(-15deg); }
+.pet-sad #right-ear { transform: translateY(5px) rotate(15deg); }
+.pet-sad #tail { transform: rotate(-10deg) translateY(5px); }
+.pet-sad .holo-glow { filter: drop-shadow(0 0 5px rgba(0, 150, 200, 0.5)); }
+
+.pet-confused #head { transform: rotate(10deg); }
+.pet-confused #left-ear { transform: translateY(-5px); }
+.pet-confused #right-ear { transform: translateY(8px) rotate(-10deg); }
+
+
+.pet-talking #mouth { animation: talking-anim 0.4s infinite ease-in-out; }
+.pet-clicked { animation: jiggle 0.4s ease-in-out; }
+
+@keyframes idle-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes tail-sway { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(10deg); } }
+@keyframes tail-wag { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+@keyframes ear-twitch { 0%, 95%, 100% { transform: rotate(0); } 97% { transform: rotate(-5deg); } }
+@keyframes happy-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px) scale(1.02); } }
+@keyframes eye-scan { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-2px); } 75% { transform: translateX(2px); } }
+@keyframes talking-anim { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.2); } }
+@keyframes dot-bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+@keyframes eye-blink { 0%, 96%, 100% { transform: scaleY(1); } 98% { transform: scaleY(0.1); } }
+@keyframes jiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
+
+.bot-bubble p { margin: 0; }
+.bot-bubble ul, .bot-bubble ol { padding-left: 1.5rem; margin-top: 0.5rem; }
+.bot-bubble li { margin-bottom: 0.25rem; }
+.bot-bubble strong { color: var(--accent-cyan); }
+.bot-bubble code {
+    background-color: var(--bg-dark-primary);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    font-family: monospace;
+}
