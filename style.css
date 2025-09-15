@@ -12,11 +12,15 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+    height: 100%;
+    overflow: hidden; /* Prevent body from scrolling */
+}
+
 body {
     font-family: var(--font-main);
     background-color: var(--bg-dark-primary);
     color: var(--text-primary);
-    padding: 1rem;
 }
 
 .font-orbitron { font-family: var(--font-title); }
@@ -24,7 +28,7 @@ body {
 
 #app-container {
     width: 100%;
-    height: calc(100vh - 2rem);
+    height: 100svh; /* Use small viewport height for mobile consistency */
     max-width: 1152px;
     margin: 0 auto;
     background-color: var(--bg-dark-secondary);
@@ -34,21 +38,26 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    /* On larger screens, remove the border radius and border to feel more integrated */
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
 }
 
 #pet-container {
     width: 100%;
-    height: 40%;
-    min-height: 200px;
+    height: 35%; /* Reduced from 40% to give chat more space */
+    min-height: 180px; /* Reduced min-height slightly */
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    flex-shrink: 0; /* Prevent this container from shrinking */
 }
 
 #pet-svg {
-    width: 200px;
-    height: 200px;
+    width: 180px; /* Slightly smaller for mobile */
+    height: 180px;
     cursor: pointer;
 }
 
@@ -60,7 +69,7 @@ body {
     padding: 1rem;
     background-color: rgba(0, 0, 0, 0.2);
     border-top: 1px solid var(--border-color);
-    min-height: 0;
+    min-height: 0; /* CRITICAL FIX: Allows container to shrink on flex layouts */
 }
 
 #chat-header {
@@ -193,7 +202,16 @@ body {
 #send-btn:disabled { background-color: #1e3a45; color: #64748b; cursor: not-allowed; }
 
 @media (min-width: 768px) {
-    #app-container { flex-direction: row; }
+    body {
+        padding: 1rem; /* Add padding back on desktop */
+    }
+    #app-container {
+        flex-direction: row;
+        height: calc(100vh - 2rem);
+        border-radius: 1rem; /* Add border radius back */
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+    }
     #pet-container {
         width: 50%;
         height: 100%;
